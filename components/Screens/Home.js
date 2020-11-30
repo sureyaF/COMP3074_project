@@ -12,14 +12,17 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  Button,
+  ImageBackground,
+  TouchableOpacity,
 
 } from 'react-native';
 const Separator = () => (
   <View style={styles.separator} />
 );
 const Drawer = createDrawerNavigator();
-
+const image =require("../Resources/454105_backgrounds-minimal-blue-white-mobile-wallpapers_640x1136_h.jpg");
+//const image = { uri: "https://reactjs.org/logo-og.png" };
 
 
 const HomeScreen = ({ navigation }) => {
@@ -38,30 +41,39 @@ catch(error){
 */
   return (
     <SafeAreaView style={styles.container}>
+      <ImageBackground source={image} style={styles.image}>
       <Separator />
       <Separator />
       <Separator />
       <SafeAreaView >
-        <Button
+        <TouchableOpacity
+          style={styles.homepagebutton}
           title="Login"
           onPress={
             () => {
               navigation.navigate('login');
-            }}
-        />
+            }}>
+              <Text style={{ color: 'white', fontSize: 24 }}>Login</Text>
+            </TouchableOpacity>
+
         <Separator />
-        <Button
+        <TouchableOpacity
+          style={styles.homepagebutton}
           title="Register"
           onPress={() => navigation.navigate('registration')}
-        />
+        >
+        <Text style={{ color: 'white', fontSize: 24 }}>Register</Text>
+        </TouchableOpacity>
         <Separator />
-        <Button
+        <TouchableOpacity
+          style={styles.homepagebutton}
           title="Terms of Use"
           onPress={
             () => {
               navigation.navigate('terms');
-            }}
-        />
+            }}>
+            <Text style={{ color: 'white', fontSize: 24 }}>Terms</Text>
+            </TouchableOpacity>
         <Separator />
         <Separator />
         <Separator />
@@ -80,6 +92,7 @@ catch(error){
         <Separator />
         <Separator />
       </SafeAreaView>
+      </ImageBackground>
     </SafeAreaView>
   );
 };

@@ -53,3 +53,22 @@ export { Dashnav };
         </Tab.Navigator>
     </NavigationContainer>
 */
+/*
+        <Tab.Navigator>
+            <Tab.Screen
+                name="Main"
+                component={DashHome} />
+            <Tab.Screen
+                name="Profile"
+                component={DashProfile} />
+            <Tab.Screen
+                name="Request"
+                component={DashRequest} />
+            <Tab.Screen
+                name="Update"
+                component={DashUpdate} />
+        </Tab.Navigator>
+
+
+
+*/

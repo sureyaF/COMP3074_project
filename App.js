@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Nav } from "./components/Nav/Nav"
+import * as SQLite from 'expo-sqlite';
 //-------------------------------
 /*
 import {HomeScreen} from "./components/Screens/Home"
@@ -23,23 +24,83 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  Button,
+  Image,
+  ImageBackground
 
 } from 'react-native';
 const Separator = () => (
   <View style={styles.separator} />
 );
 //const Drawer = createDrawerNavigator();
-
+const db = SQLite.openDatabase('mydb.db');
 export default function App() {
-  return (
+  const [users, setUsers] = React.useState(null)
+  //---------------------------------------------Database start
+  React.useEffect(
+    () => {
+      db.transaction(
+        //callback  
+        (tx) => {
+          //----------------------------- create
+          tx.executeSql(
+            //statement
+            'CREATE TABLE IF NOT EXISTS users (id	INTEGER NOT NULL,fname	TEXT NOT NULL,lname	TEXT NOT NULL,email	TEXT NOT NULL,password	TEXT NOT NULL,PRIMARY KEY(id AUTOINCREMENT));',
+            //arguments
+            [],
+            //success
+            function () { console.log('success create') },
+            //error
+            function (err) { console.log('fail create: ', err) }
+          )
+          //---------------------------- insert
+          /*
+          tx.executeSql(
+            //statement
+            "insert into users (fname,lname,email,password) values ('i','j','k','l');",
+            //arguments
+            [],
+            //success
+            function () { console.log('success add user') },
+            //error
+            function (err) { console.log('fail add user: ', err) }
+          )
+          */
+          //--------------------------show all
+          tx.executeSql(
+            //statement
+            "select * from users;",
+            //arguments
+            [],
+            //success
+            //(_, { rows }) => {
+            (_, { rows }) => {
+              var data = JSON.stringify(rows)
+              setUsers(data);
+              console.log(data);
+              //console.log(`type of users is : ${typeof (users)}`);
+              //console.log(`spesific user: ${users[0]}`);
 
+            },
+            //error
+            function (err) { console.log('fail fetch data: ', err) }
+          )
+        },
+        //error
+        function (err) { console.log('fail connect to database: ', err) },
+        //success
+        function () { console.log('success connect to database: ') },
+      )
+    }, []
+
+  );
+  //---------------------------------------------Database End
+  return (
     <>
       <SafeAreaView style={styles.interface}>
-      <Text style={styles.interfaceText}>Financial Advisor</Text>
+        <Text style={styles.interfaceTexttitle}>Financial Advisor</Text>
       </SafeAreaView>
       <Nav />
-
     </>
   );
 }

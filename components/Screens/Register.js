@@ -13,11 +13,14 @@ import {
   Button,
   TextInput,
   TouchableOpacity,
+  ImageBackground,
 
 } from 'react-native';
 const Separator = () => (
   <View style={styles.separator} />
 );
+
+const image =require("../Resources/454105_backgrounds-minimal-blue-white-mobile-wallpapers_640x1136_h.jpg");
 //const Drawer = createDrawerNavigator();
 const RegisterScreen = ({ navigation }) => {
   
@@ -29,49 +32,52 @@ const RegisterScreen = ({ navigation }) => {
   const [error, setError] = useState(null)
   
   return (
-      <SafeAreaView style={styles.container}>
-        <Button
-          title="Cancel"
-          onPress={
+      <SafeAreaView style={styles.registercontainer}>
+        <ImageBackground source={image} style={styles.registerimage}>
+          <TouchableOpacity
+            style={styles.loginpagebutton}
+            title="Cancel"
+            onPress={
             () => {
-              setfirstname(null)
-              setlastname(null)
-              setemail(null)
-              setpassword(null)
-              setrepassword(null)
-              setError(null)
-              navigation.navigate('home')
+            setfirstname(null)
+            setlastname(null)
+            setemail(null)
+            setpassword(null)
+            setrepassword(null)
+            setError(null)
+            navigation.navigate('home')
             }}
-        />
+          >
+            <Text style={{ color: 'white', fontSize: 24 }}>Cancel</Text>
+          </TouchableOpacity>
         <Separator/>
-        <Text style={styles.interfaceText}>Registration</Text>
         <Separator/>
-        <TextInput style={styles.textinput}
+        <TextInput style={styles.textinputregister}
         placeholder="First Name"
         underlineColorAndroid={"transparent"}
         onChangeText={(value) => setfirstname(value)}
         value={firstname}
         />
-        <TextInput style={styles.textinput}
+        <TextInput style={styles.textinputregister}
         placeholder="Last Name"
         underlineColorAndroid={"transparent"}
         onChangeText={(value) => setlastname(value)}
         value={lastname}
         />
-        <TextInput style={styles.textinput}
+        <TextInput style={styles.textinputregister}
         placeholder="Email"
         underlineColorAndroid={"transparent"}
         onChangeText={(value) => setemail(value)}
         value={email}
         />
-        <TextInput style={styles.textinput}
+        <TextInput style={styles.textinputregister}
         placeholder="Password"
         underlineColorAndroid={"transparent"}
         secureTextEntry={true}
         onChangeText={(value) => setpassword(value)}
         value={password}
         />
-        <TextInput style={styles.textinput}
+        <TextInput style={styles.textinputregister}
         placeholder="ReEnter Password"
         underlineColorAndroid={"transparent"}
         secureTextEntry={true}
@@ -81,7 +87,7 @@ const RegisterScreen = ({ navigation }) => {
         <Separator/>
         <Separator/>
         <TouchableOpacity
-        style={styles.registerButton}
+        style={styles.registerpagebutton}
         onPress={
           () => {
             if(password===repassword && password!=null && repassword!=null && firstname!=null && lastname!=null && email!=null){
@@ -95,11 +101,12 @@ const RegisterScreen = ({ navigation }) => {
               }
             }
           }}
-        ><Text style={styles.registerbtntxt}>Register</Text>
+        ><Text style={{ color: 'white', fontSize: 24 }}>Register</Text>
         </TouchableOpacity>
         <Separator />
       <Separator />
       <Text style={styles.errorText}>{error}</Text>
+      </ImageBackground>
       </SafeAreaView>
     );
   };

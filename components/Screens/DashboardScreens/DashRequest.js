@@ -11,18 +11,21 @@ import {
   View,
   Button,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  ImageBackground,
 
 } from 'react-native';
 const Separator = () => (
   <View style={styles.separator} />
 );
-
+const image =require("../../Resources/454105_backgrounds-minimal-blue-white-mobile-wallpapers_640x1136_h.jpg");
 const DashRequest = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.dashhome}>
+      <ImageBackground source={image} style={styles.dashboardimage}>
         <Text>This is Request</Text>
+      </ImageBackground>
     </SafeAreaView>
   );
 };

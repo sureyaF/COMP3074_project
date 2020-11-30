@@ -13,7 +13,9 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  Button,
+  ImageBackground,
+  TouchableOpacity,
 
 } from 'react-native';
 import { set } from 'react-native-reanimated';
@@ -21,31 +23,34 @@ const Separator = () => (
   <View style={styles.separator} />
 );
 const Drawer = createDrawerNavigator();
-
+const image =require("../Resources/454105_backgrounds-minimal-blue-white-mobile-wallpapers_640x1136_h.jpg");
 const DashBoard = ({ navigation,route }) => {
     //receive the values form another screen
     const [user, setuser] = useState(null)
     const [pass, setpass] = useState(`${route.params.paramsKey[1]}`) 
     return (
-    <>
-    
-      <SafeAreaView style={styles.container}>
-        <Button
-          title="Log out"
-          onPress={
+      <>
+        <SafeAreaView style={styles.dashboardcontainer}>
+
+            <TouchableOpacity
+            style={styles.dashboardlogoutpagebutton}
+            title="Log out"
+            onPress={
             () => {
-                setuser(null)
-                setpass(null)
-                navigation.navigate('home')
-            }}
-        />
-        <Separator />
-        <Text style={styles.welcomingtext}>{`Hello ${route.params.paramsKey[0]}`}</Text>
-      </SafeAreaView>
-      <SafeAreaView style={styles.dashbody}>
-        {/*this area is blank but it exists*/}
-      <Dashnav />
-      </SafeAreaView>
+            setuser(null)
+            setpass(null)
+            navigation.navigate('home')
+            }}>
+            <Text style={{ color: 'white', fontSize: 15 }}>Logout</Text>
+          </TouchableOpacity>
+            <Separator />
+            <Text style={{ color: 'white', fontSize: 15, paddingLeft:"5%" }}>{`Hello ${route.params.paramsKey[0]}`}</Text>
+
+        </SafeAreaView>
+        <SafeAreaView style={styles.dashbody}>
+          {/*this area is blank but it exists*/}
+          <Dashnav />
+        </SafeAreaView>
       </>
     );
   };
