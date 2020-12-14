@@ -4,9 +4,11 @@ import {styles} from "../Styles/styles"
 import { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import {LoginScreen} from "../Screens/Login"
-import { Dashnav } from "../Nav/Dashnav"
-
+import {LoginScreen} from "../Screens/Login";
+import { Dashnav } from "../Nav/Dashnav";
+import Global from "../Data/Global";
+//import GlobalData from "../Data/GlobalData"
+import * as SQLite from 'expo-sqlite';
 import {
   SafeAreaView,
   Alert,
@@ -24,10 +26,19 @@ const Separator = () => (
 );
 const Drawer = createDrawerNavigator();
 const image =require("../Resources/454105_backgrounds-minimal-blue-white-mobile-wallpapers_640x1136_h.jpg");
+
+const db = SQLite.openDatabase('mydb.db');
+var g=Global
+
 const DashBoard = ({ navigation,route }) => {
-    //receive the values form another screen
-    const [user, setuser] = useState(null)
-    const [pass, setpass] = useState(`${route.params.paramsKey[1]}`) 
+
+
+  const [sqlid, setsqlid] = useState(route.params.paramsKey[0])
+  const [sqlfname, setsqlfname] = useState(route.params.paramsKey[1])
+  const [sqllname, setsqllname] = useState(route.params.paramsKey[2])
+  const [sqlemail, setsqlemail] = useState(route.params.paramsKey[3])
+  const [sqlpassword, setsqlpassword] = useState(route.params.paramsKey[4])
+
     return (
       <>
         <SafeAreaView style={styles.dashboardcontainer}>
@@ -37,14 +48,31 @@ const DashBoard = ({ navigation,route }) => {
             title="Log out"
             onPress={
             () => {
-            setuser(null)
-            setpass(null)
+              Global.sqlid=null,
+              Global.sqlfname=null,
+              Global.sqllname=null,
+              Global.sqlemail=null,
+              Global.sqlpassword=null,
+              
+              Global.datadates=null,
+              Global.rent=null,
+              Global.gas=null,
+              Global.grocery=null,
+          
+          
+              Global.graphdates=null,
+              
+              Global.rentgraph=null,
+              Global.gasgraph=null,
+              Global.grocerygraph=null,
+              Global.totalgraph=null,
+            
             navigation.navigate('home')
             }}>
             <Text style={{ color: 'white', fontSize: 15 }}>Logout</Text>
           </TouchableOpacity>
             <Separator />
-            <Text style={{ color: 'white', fontSize: 15, paddingLeft:"5%" }}>{`Hello ${route.params.paramsKey[0]}`}</Text>
+            <Text style={{ color: 'white', fontSize: 15, paddingLeft:"5%" }}>{`Hello ${sqlfname}`}</Text>
 
         </SafeAreaView>
         <SafeAreaView style={styles.dashbody}>
@@ -57,11 +85,3 @@ const DashBoard = ({ navigation,route }) => {
 
   
   export {DashBoard};
-
-  /*
-        <SafeAreaView style={styles.dashbody}>
-      <Text>this is the body of dashboard</Text>
-      <Dashnav />
-      </SafeAreaView>
-  
-  */
